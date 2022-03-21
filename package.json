@@ -1,0 +1,12 @@
+{
+  "name": "info2602-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "init": "python ./App/initDB.py",
+    "start" : "python ./App/main.py"
+  },
+  "author": "",
+  "license": "ISC"
+}
