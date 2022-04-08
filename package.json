@@ -1,12 +1,22 @@
 {
-  "name": "info2602-project",
+  "name": "flask-template",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "index.js",
   "scripts": {
-    "init": "python ./App/initDB.py",
-    "start" : "python ./App/main.py"
+    "init": "flask init",
+    "serve": "flask run",
+    "prod-serve": "gunicorn -b 0.0.0.0:8080 -w 4 App.main:app"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Snickdx/flask-template.git"
+  },
+  "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Snickdx/flask-template/issues"
+  },
+  "homepage": "https://github.com/Snickdx/flask-template#readme"
 }
