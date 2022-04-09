@@ -1,0 +1,1 @@
+from froala_editor import FlaskAdapter

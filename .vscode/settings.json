@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./wysiwyg-editor-python-sdk-master"
+    ]
+}
