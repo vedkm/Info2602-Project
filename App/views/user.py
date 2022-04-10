@@ -22,6 +22,7 @@ def client_app():
     return jsonify(users)
 
 @user_views.route('/api/lol')
+@jwt_required()
 def lol():
     return 'lol'
 
