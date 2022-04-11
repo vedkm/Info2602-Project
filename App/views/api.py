@@ -1,9 +1,12 @@
 # from crypt import methods
 import json
 import os
-from flask import Blueprint, redirect, render_template, request, send_from_directory
+from flask import Blueprint, redirect, render_template, request, send_from_directory, session
 from sqlalchemy import JSON
 from werkzeug.utils import secure_filename
+
+from App.models import user
+from ..models import db, User, Listing
 
 import App
 
@@ -13,11 +16,41 @@ api_views = Blueprint('api_views', __name__, template_folder='../templates')
 def get_api_docs():
     return render_template('index.html')
 
-@api_views.route('/save', methods=['POST'])
-def post_froala_text():
-    data = request.form['content']
-    print(data)
-    return data
+@api_views.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json() 
+    username = data['username']
+    password = data['password']
+    shopName = data['shopName']
+    db.session.add(User(username, password, shopName))
+    db.session.commit()
+    return "Added User"
+
+@api_views.route('/save', methods=['PUT'])
+def update_froala_text():
+    html = request.form['content']
+    id = request.form['id']
+    userID = request.form['userID']
+    print(id)
+    print(html)
+    listing = Listing.query.get(id)
+    if (listing == None):
+        db.session.add(Listing(userID, html))
+        db.session.commit()
+        print("Listing Created")
+        return "Listing Created"
+    
+    listing.html = html
+    db.session.add(listing)
+    db.session.commit()
+    return html
+
+@api_views.route('/editor')
+def get_editor():
+    listing = Listing.query.get(1)
+    if (listing == None): return render_template("editor.html")
+    # print(listing.toDict())
+    return render_template("editor.html", listingHTML=listing.html)
 
 UPLOAD_FOLDER = "C:/Users/User/OneDrive - The University of the West Indies, St. Augustine/year 2/INFO 2602/Info2602 Project/App/images"
 # App.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER

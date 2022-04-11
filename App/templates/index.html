@@ -15,6 +15,8 @@
         <body>
                 <!-- Create a tag that we will use as the editable area. -->
                 <!-- You can use a div tag as well. -->
+
+                <!-- this div holds the text editor -->
                 <div id="editor"></div>
                 
                 <!-- Include Editor JS files. -->
@@ -26,9 +28,10 @@
                       saveInterval: 2500,
                       saveParam: 'content',
                       saveURL: 'http://localhost:8080/save',
-                      saveMethod: 'POST',
+                      saveMethod: 'PUT',
                       saveParams: {
-                          'userID': "xxx"
+                          'id': 1,
+                          'userID': 1
                       },
                       events: {
                           'save.error': function(error, response) {
