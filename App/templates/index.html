@@ -24,51 +24,7 @@
                 
                 <!-- Initialize the editor. -->
                 <script>
-                  var editor = new FroalaEditor('#editor', {
-                      saveInterval: 2500,
-                      saveParam: 'content',
-                      saveURL: 'http://localhost:8080/save',
-                      saveMethod: 'PUT',
-                      saveParams: {
-                          'id': 1,
-                          'userID': 1
-                      },
-                      events: {
-                          'save.error': function(error, response) {
-                            console.log(error);
-                          },
-                          'image.error': function (error, response) {
-                              // Bad link.
-                              if (error.code == 1) {
-
-                              }
-
-                            // No link in upload response.
-                            else if(error.code == 2) {  }
-
-                            // Error during image upload.
-                            else if (error.code == 3) {  }
-
-                            // Parsing response failed.
-                            else if (error.code == 4) {  }
-
-                            // Image too text-large.
-                            else if (error.code == 5) {  }
-
-                            // Invalid image type.
-                            else if (error.code == 6) {  }
-
-                            // Image can be uploaded only to same domain in IE 8 and IE 9.
-                            else if (error.code == 7) {  }
-
-                      }
-                    },
-
-                      imageUploadParam: 'image_param',
-                      imageUploadURL: '/upload_froala_image',
-                      imageUploadMethod: 'POST'
-                  }, () => {
-                  })
+                  var editor = new FroalaEditor('#editor')
                 </script>
         
             </body>

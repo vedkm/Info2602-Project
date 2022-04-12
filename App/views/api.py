@@ -4,6 +4,7 @@ import os
 from flask import Blueprint, redirect, render_template, request, send_from_directory, session
 from sqlalchemy import JSON
 from werkzeug.utils import secure_filename
+from flask_jwt import jwt_required
 
 from App.models import user
 from ..models import db, User, Listing
@@ -45,7 +46,8 @@ def update_froala_text():
     db.session.commit()
     return html
 
-@api_views.route('/editor')
+# can return an array of listings if we end up doing multiple editors in 1 page
+@api_views.route('/farmers')
 def get_editor():
     listing = Listing.query.get(1)
     if (listing == None): return render_template("editor.html")
