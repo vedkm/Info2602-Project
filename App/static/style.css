@@ -1,0 +1,7 @@
+.main-wrapper{
+    display:grid;
+    grid-template-columns:0% 100%
+}
+.left-container{
+    visibility: hidden;
+}
