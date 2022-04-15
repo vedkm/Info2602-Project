@@ -15,35 +15,44 @@
 
   </head>
   <body>
-    <nav class="purple">
+    <nav class="navbar">
       <div class="nav-wrapper">
         <a href="#!" class="brand-logo center">{% block page %}{% endblock %}</a>
         <div class="nav-wrapper">
-            <ul id="nav-mobile" class="left">
-                <li><a href="/">Home</a></li>
-                <li><a href="/users">Users Jinja</a></li>
-                <li><a href="/static/users">Users JS</a></li>
-            </ul>
+              <button type="button" id ="menu" value="NO" onclick = "toggleMenu()">menu</a>
+            
         </div>
       </div>
     </nav>
     
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <nav class="white black-text" style="padding: 10px">
-      <div class="nav-wrapper">
-          <ul class="flashes">
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
-          </ul>
+    
+    <div class="main-wrapper" id = "main">
+      <div class = "left-container" id ="contentl">
+        <li><a href="/">Home</a></li>
+        <li><a href="/users">Users Jinja</a></li>
+        <li><a href="/static/users">Users JS</a></li>
       </div>
-    </nav>
-    {% endif %}
-    {% endwith %}
-
-    <div class="container" id="content">{% block content %}{% endblock %}</div>
+      <div class="right-container" id="contentr">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      function toggleMenu(){
+        var status= document.getElementById("menu");
+        console.log(status.value);
+        if(status.value == "YES"){
+          status.value = "NO";
+          document.getElementById("contentl").style.visibility = "hidden";
+          document.getElementById("main").style.gridTemplateColumns  = "0% 100%";
+        }
+        else if(status.value == "NO"){
+          status.value = "YES";
+          document.getElementById("contentl").style.visibility = "visible";
+          document.getElementById("main").style.gridTemplateColumns = "20% 80%";
+        }
+      }
+    </script>
   </body>
 </html>
