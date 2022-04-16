@@ -5,27 +5,8 @@
 {{ super() }}
 
 {% block content %}
-    <h1>Flask MVC</h1>
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
-    <head>
-        <!-- Include Editor style. -->
-        <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-        
-        </head>
-        <body>
-                <!-- Create a tag that we will use as the editable area. -->
-                <!-- You can use a div tag as well. -->
-
-                <!-- this div holds the text editor -->
-                <div id="editor"></div>
-                
-                <!-- Include Editor JS files. -->
-                <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
-                
-                <!-- Initialize the editor. -->
-                <script>
-                  var editor = new FroalaEditor('#editor')
-                </script>
-        
-            </body>
+    <div class="content-wrapper">
+      <div class = "cath-panel">Stuff</div>
+      <div class = "store-panel">Other Stuff</div>
+    </div>
 {% endblock %}
