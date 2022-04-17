@@ -1,5 +1,6 @@
 body {
     overflow: hidden;
+    background-color: lightgrey;
 }
 
 .navbar {
@@ -29,8 +30,11 @@ body {
 .left-container{
     visibility: hidden;
     margin-top: 64px;
-    z-index: -1;
     background-color: lightgrey;
+}
+
+.right-container{
+    margin-top: 64px;
 }
 
 .content-wrapper{
