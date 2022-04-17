@@ -6,6 +6,7 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
+from App.controllers.auth import setup_flasklogin
 
 
 from App.database import create_db, get_migrate
@@ -55,8 +56,17 @@ def create_app(config={}):
     add_views(app, views)
     create_db(app)
     setup_jwt(app)
+    
+    
     app.app_context().push()
     return app
 
 app = create_app()
 migrate = get_migrate(app)
+
+# flask login setup
+login_manager = setup_flasklogin(app)
+@login_manager.user_loader
+def load_user(user_id):
+    from App.models import User
+    return User.query.get(user_id)

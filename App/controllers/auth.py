@@ -1,4 +1,6 @@
+import flask
 import flask_login
+# from flask_login import LoginManager, login_manager
 from flask_jwt import JWT
 from App.models import User
 
@@ -19,5 +21,17 @@ def login_user(user, remember):
 def logout_user():
     flask_login.logout_user()
 
+
+
+def get_session():
+    user = flask_login.current_user
+    print(user.get_id())
+    return user
+
 def setup_jwt(app):
     return JWT(app, authenticate, identity)
+
+def setup_flasklogin(app):
+    login_manager = flask_login.LoginManager()
+    login_manager.init_app(app)
+    return login_manager
