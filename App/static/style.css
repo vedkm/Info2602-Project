@@ -43,18 +43,13 @@ body {
     grid-auto-rows: auto;
     grid-auto-rows: minmax(1080px, auto);
     height:100vh;
-    margin-top: 30px;
-}
-
-.cath-panel{
-    grid-column-start: 1;
-    grid-column-end: 2;
-    background-color: grey;
     
 }
 
+
+
 .store-panel{
-    grid-column-start: 2;
+    grid-column-start: 1;
     grid-column-end: 4;
     overflow-y: scroll;
     background-color:black;
