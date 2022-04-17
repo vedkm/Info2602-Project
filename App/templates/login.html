@@ -11,7 +11,7 @@
     {% if current_user.is_authenticated %}
         Hi {{ current_user.toDict() }}
     {% else %}
-        <script type="text/javascript">
+        <!-- <script type="text/javascript">
             function login() {
                 fetch("/login", {
                     method: 'POST',
@@ -31,7 +31,7 @@
                 })
             }
             login()
-        </script>
+        </script> -->
     {% endif %}
         
     

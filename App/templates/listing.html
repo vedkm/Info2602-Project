@@ -19,12 +19,10 @@
     var editor = new FroalaEditor('.editor', {
         saveInterval: 2500,
         saveParam: 'content',
-        saveURL: 'http://localhost:8080/save',
+        saveURL: 'http://localhost:8080/savelistinghtml',
         saveMethod: 'PUT',
         saveParams: {
-            'id': 1,
-            'userID': 1,
-            'name': 'farmer1'
+            'id': '{{listing.id}}',
         },
         dragInLine: true,
         events: {
@@ -59,11 +57,11 @@
         },
 
         imageUploadParam: 'image_param',
-        imageUploadURL: '/upload_froala_image',
+        imageUploadURL: '/savelistinghtml',
         imageUploadMethod: 'POST'
     }, () => {
         // safe tag prevents automatic escaping done by jinja
-        editor.html.set('{{listingHTML|safe}}')
+        editor.html.set('{{listing.html|safe}}')
     })
 </script>
 
