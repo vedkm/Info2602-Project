@@ -32,7 +32,7 @@ def signup():
 @api_views.route("/login", methods=["POST", "GET"])
 def loginAction():
     if (request.method == "POST"):
-        data = request.get_json()
+        data = request.form
         user = authenticate(data['username'], data['password'])
         if (user):
             user.authenticated = True
