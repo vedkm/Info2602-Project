@@ -1,11 +1,12 @@
-<!-- temporary file -->
 {% extends "layout.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Listing{% endblock %}
 {% block page %}{{current_user.shopName}}{% endblock %}
 
 {{ super() }}
 
 {% block content %}
+{{listing}}
+
 <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
     type="text/css" />
 

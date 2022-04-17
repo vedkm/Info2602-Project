@@ -1,12 +1,12 @@
 # from crypt import methods
 import json
 import os
-from flask import Blueprint, redirect, render_template, request, send_from_directory, session
-from flask_login import login_required
-from sqlalchemy import JSON
+from flask import Blueprint, redirect, render_template, request, send_from_directory, url_for
+from flask_login import login_required, current_user
+from sqlalchemy import JSON, false
 from werkzeug.utils import secure_filename
 from flask_jwt import jwt_required
-from App.controllers.auth import authenticate, get_session, login_user
+from App.controllers.auth import authenticate, get_session, login_user, logout_user
 
 from App.models import user
 from ..models import db, User, Listing
@@ -46,16 +46,27 @@ def loginAction():
     
     return render_template("login.html")
 
+@api_views.route("/logout", methods=["GET"])
+def logout():
+    user = current_user
+    user.authenticated = False
+    db.session.add(user)
+    db.session.commit()
+    logout_user()
+    return redirect("/")
+    # return render_template("index.html")
+
 @api_views.route('/save', methods=['PUT'])
 def update_froala_text():
     html = request.form['content']
     id = request.form['id']
     userID = request.form['userID']
+    name = request.form['name']
     print(id)
     print(html)
     listing = Listing.query.get(id)
     if (listing == None):
-        db.session.add(Listing(userID, html))
+        db.session.add(Listing(userID, html, name))
         db.session.commit()
         print("Listing Created")
         return "Listing Created"
@@ -67,6 +78,7 @@ def update_froala_text():
 
 # can return an array of listings if we end up doing multiple editors in 1 page
 @api_views.route('/farmers')
+@login_required
 def get_editor():
     listing = Listing.query.get(1)
     if (listing == None): return render_template("editor.html")
@@ -96,19 +108,4 @@ def post_froala_image():
 @api_views.route('/images/<filename>')
 def get_image(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
-
-@api_views.route('/listings')
-def get_listings():
-    id = request.args.get('id')
-    listings = []
-    if (id):
-        listings = Listing.query.get(id)
-        if (not listings):
-            listings = []
-        else:
-            listings = listings.toDict()
-    else:
-        listings = Listing.query.all()
-        listings = [list.toDict() for list in listings]
-    return json.dumps(listings)
 
