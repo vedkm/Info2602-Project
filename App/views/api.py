@@ -19,7 +19,7 @@ api_views = Blueprint('api_views', __name__, template_folder='../templates')
 @api_views.route('/', methods=['GET'])
 def get_api_docs():
     listings = getAllListings()
-    return render_template('index.html', listings=json.dumps(listings))
+    return render_template('index.html', listings=listings)
 
 @api_views.route('/signup', methods=['POST'])
 def signup():
@@ -44,7 +44,7 @@ def loginAction():
             if (status == True):
                 # session = get_session()
                 # return session.toDict()
-                return redirect("/farmers")
+                return redirect("/profile")
 
     flash("Invalid username or password. Would you like to signup?", "error")
     error = "Invalid username or password. Would you like to signup?"
@@ -81,13 +81,13 @@ def update_froala_text():
     return html
 
 # can return an array of listings if we end up doing multiple editors in 1 page
-@api_views.route('/farmers')
+@api_views.route('/profile')
 @login_required
 def get_editor():
     listing = Listing.query.get(1)
     if (listing == None): return render_template("editor.html")
     # print(listing.toDict())
-    return render_template("editor.html", listingHTML=listing.html)
+    return render_template("profile.html", listingHTML=listing.html)
 
 # App.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 UPLOAD_FOLDER = "C:/Users/User/OneDrive - The University of the West Indies, St. Augustine/year 2/INFO 2602/Info2602 Project/App/images"

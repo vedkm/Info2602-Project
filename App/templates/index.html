@@ -1,14 +1,23 @@
 {% extends "layout.html" %}
-{% block title %}Flask MVC App{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+{% block title %}CornHub{% endblock %}
+{% block page %}CornHub{% endblock %}
 
 {{ super() }}
 
 {% block content %}
 
 <!-- listings contains all listings in the database -->
-{{listings}}
+<!-- {{listings}} -->
+
+
+
     <div class="content-wrapper">
-      <div class = "store-panel">Other Stuff</div>
+      <div class = "store-panel">
+        {% for listing in listings %}
+          <a href="../listing/{{listing['id']}}">
+            <span class="name">{{listing['name']}}</span>
+          </a>
+        {% endfor %}
+      </div>
     </div>
 {% endblock %}

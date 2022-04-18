@@ -19,3 +19,6 @@ def get_all_users_json():
 
 def get_all_users():
     return User.query.all()
+
+def get_user_by_ID(id):
+    return User.query.get(id).toDict()

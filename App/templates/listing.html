@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block title %}Listing{% endblock %}
-{% block page %}{{current_user.shopName}}{% endblock %}
+{% block page %}{{farmer.shopName}} : {{listing.name}}{% endblock %}
 
 {{ super() }}
 
 {% block content %}
-{{listing}}
+<!-- {{listing}} -->
 
 <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
     type="text/css" />

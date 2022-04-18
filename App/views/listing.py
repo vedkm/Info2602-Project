@@ -2,6 +2,7 @@ import json
 from flask import Blueprint, flash, redirect, render_template, request
 from flask_login import login_required
 from App.controllers.listing import *
+from App.controllers.user import get_user_by_ID
 from App.models import db, User, Listing, listing
 
 from werkzeug.utils import secure_filename
@@ -22,10 +23,11 @@ def add_listing():
 @listing_views.route("/listing/<id>", methods=["GET"])
 def get_listing(id):
     listing = getListingByID(id)
+    farmer = get_user_by_ID(listing['farmerID'])
     if (not listing):
         flash("No Such Listing.", "error")
         return redirect("/")
-    return render_template("listing.html", listing=listing)
+    return render_template("listing.html", listing=listing, farmer=farmer)
 
 @listing_views.route('/savelistinghtml', methods=['PUT'])
 def save():
