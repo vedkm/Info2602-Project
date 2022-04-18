@@ -10,10 +10,13 @@
 <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
     type="text/css" />
 
-<div class="editor"></div>
+<div class="editor">{{listing['html']|safe}}</div>
+
+<!-- {{listing['html']|safe}} -->
 
 <script type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
+
 
 <script>
     var editor = new FroalaEditor('.editor', {
@@ -59,15 +62,15 @@
         },
 
         imageUploadParam: 'image_param',
-        imageUploadURL: '/savelistinghtml',
-        imageUploadMethod: 'POST'
+        imageUploadURL: 'http://localhost:8080/savelistinghtml',
+        imageUploadMethod: 'PUT'
     }, () => {
         // safe tag prevents automatic escaping done by jinja
-        editor.html.set('{{listing["html"]|safe}}')
-        '{% if not current_user.is_authenticated %}'
+        // editor.html.set('{{listing["html"]|safe}}')
+        '{% if not current_user.is_authenticated or not listing.farmerID == current_user.id%}'
             editor.edit.off()
         '{% endif %}'
     })
-</script>
+    </script>
 
 {% endblock %}

@@ -11,6 +11,7 @@ class Listing(db.Model):
     def __init__(self, farmerID, name):
         self.farmerID = farmerID
         self.name = name
+        self.html = ""
 
     def toDict(self):
         return {

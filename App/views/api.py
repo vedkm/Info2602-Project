@@ -89,8 +89,8 @@ def get_editor():
     # print(listing.toDict())
     return render_template("editor.html", listingHTML=listing.html)
 
-UPLOAD_FOLDER = "C:/Users/User/OneDrive - The University of the West Indies, St. Augustine/year 2/INFO 2602/Info2602 Project/App/images"
 # App.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+UPLOAD_FOLDER = "C:/Users/User/OneDrive - The University of the West Indies, St. Augustine/year 2/INFO 2602/Info2602 Project/App/images"
 
 @api_views.route('/upload_froala_image', methods=['POST'])
 def post_froala_image():
@@ -104,7 +104,8 @@ def post_froala_image():
     image.save(path, image.content_length)
     print(path)
     return {
-        "link": "images/"+filename
+        # "link": "images/"+filename
+        "link": "http://localhost:8080/savelistinghtml"
     }
 
 # allows the text editor to fetch the saved image from server,
