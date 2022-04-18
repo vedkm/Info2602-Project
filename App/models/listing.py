@@ -17,5 +17,5 @@ class Listing(db.Model):
             'id': self.id,
             'farmerID': self.farmerID,
             'name': self.name,
-            'listingHTML': self.html
+            'html': self.html
         }

@@ -1,12 +1,13 @@
 # from crypt import methods
 import json
 import os
-from flask import Blueprint, redirect, render_template, request, send_from_directory, url_for
+from flask import Blueprint, flash, redirect, render_template, request, send_from_directory, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import JSON, false
 from werkzeug.utils import secure_filename
 from flask_jwt import jwt_required
 from App.controllers.auth import authenticate, get_session, login_user, logout_user
+from App.controllers.listing import getAllListings
 
 from App.models import user
 from ..models import db, User, Listing
@@ -17,7 +18,8 @@ api_views = Blueprint('api_views', __name__, template_folder='../templates')
 
 @api_views.route('/', methods=['GET'])
 def get_api_docs():
-    return render_template('index.html')
+    listings = getAllListings()
+    return render_template('index.html', listings=json.dumps(listings))
 
 @api_views.route('/signup', methods=['POST'])
 def signup():
@@ -40,11 +42,13 @@ def loginAction():
             db.session.commit()
             status = login_user(user, remember=True)
             if (status == True):
-                session = get_session()
+                # session = get_session()
                 # return session.toDict()
-                return render_template("login.html")
-    
-    return render_template("login.html")
+                return redirect("/farmers")
+
+    flash("Invalid username or password. Would you like to signup?", "error")
+    error = "Invalid username or password. Would you like to signup?"
+    return render_template("login.html", error=error)
 
 @api_views.route("/logout", methods=["GET"])
 def logout():

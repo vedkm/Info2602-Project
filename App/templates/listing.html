@@ -18,11 +18,13 @@
 <script>
     var editor = new FroalaEditor('.editor', {
         saveInterval: 2500,
-        saveParam: 'content',
+        saveParam: 'html',
         saveURL: 'http://localhost:8080/savelistinghtml',
         saveMethod: 'PUT',
         saveParams: {
             'id': '{{listing.id}}',
+            'farmerID': '{{listing.farmerID}}',
+            'name': '{{listing.name}}'
         },
         dragInLine: true,
         events: {
@@ -61,7 +63,10 @@
         imageUploadMethod: 'POST'
     }, () => {
         // safe tag prevents automatic escaping done by jinja
-        editor.html.set('{{listing.html|safe}}')
+        editor.html.set('{{listing["html"]|safe}}')
+        '{% if not current_user.is_authenticated %}'
+            editor.edit.off()
+        '{% endif %}'
     })
 </script>
 
