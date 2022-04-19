@@ -21,15 +21,18 @@ def get_api_docs():
     listings = getAllListings()
     return render_template('index.html', listings=listings)
 
-@api_views.route('/signup', methods=['POST'])
+@api_views.route('/signup', methods=['POST', 'GET'])
 def signup():
-    data = request.get_json() 
-    username = data['username']
-    password = data['password']
-    shopName = data['shopName']
-    db.session.add(User(username, password, shopName))
-    db.session.commit()
-    return "Added User"
+    if (request.method == "POST"):
+        data = request.form
+        username = data['username']
+        password = data['password']
+        shopName = data['shopName']
+        db.session.add(User(username, password, shopName))
+        db.session.commit()
+        return render_template('profile.html')
+    if (request.method == "GET"):
+        return render_template('signup.html')
 
 @api_views.route("/login", methods=["POST", "GET"])
 def loginAction():
