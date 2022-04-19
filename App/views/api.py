@@ -85,7 +85,7 @@ def update_froala_text():
 @login_required
 def get_editor():
     listing = Listing.query.get(1)
-    if (listing == None): return render_template("editor.html")
+    if (listing == None): return render_template("profile.html")
     # print(listing.toDict())
     return render_template("profile.html", listingHTML=listing.html)
 
