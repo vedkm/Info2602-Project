@@ -41,7 +41,7 @@ def save():
         image.save(path, image.content_length)
         print(path)
         return {
-            "link": "http://localhost:8080/images/"+filename
+            "link": "/images/"+filename
         }
 
     if (request.form['html']):
@@ -58,10 +58,10 @@ def save():
             print("Listing Created")
             return "Listing Created"
     
-    listing.html = html
-    db.session.add(listing)
-    db.session.commit()
-    return html
+    # listing.html = html
+    # db.session.add(listing)
+    # db.session.commit()
+    return setListingHTML(id=listing.id, html=html) 
 
 @listing_views.route('/listings')
 def get_listings():

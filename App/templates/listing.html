@@ -22,7 +22,7 @@
     var editor = new FroalaEditor('.editor', {
         saveInterval: 2500,
         saveParam: 'html',
-        saveURL: 'http://localhost:8080/savelistinghtml',
+        saveURL: '/savelistinghtml',
         saveMethod: 'PUT',
         saveParams: {
             'id': '{{listing.id}}',
@@ -62,7 +62,7 @@
         },
 
         imageUploadParam: 'image_param',
-        imageUploadURL: 'http://localhost:8080/savelistinghtml',
+        imageUploadURL: '/savelistinghtml',
         imageUploadMethod: 'PUT'
     }, () => {
         // safe tag prevents automatic escaping done by jinja

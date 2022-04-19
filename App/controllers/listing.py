@@ -23,9 +23,6 @@ def getListingByID(id):
 def setListingHTML(id, html):
     listing = Listing.query.get(id)
     listing.html = html
-    try:
-        db.session.add(listing)
-    except:
-        return None
+    db.session.add(listing)
     db.session.commit()
     return listing.toDict()

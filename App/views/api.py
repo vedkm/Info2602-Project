@@ -105,7 +105,7 @@ def post_froala_image():
     print(path)
     return {
         # "link": "images/"+filename
-        "link": "http://localhost:8080/savelistinghtml"
+        "link": "/savelistinghtml"
     }
 
 # allows the text editor to fetch the saved image from server,
