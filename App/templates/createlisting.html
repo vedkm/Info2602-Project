@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}CornHub{% endblock %}
+{% block page %}CornHub{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<body>
+        <div class="center">
+            <h1>Create Listing</h1>
+            <form action="/listing?farmerID={{current_user.id}}" method="post">
+                <div class="txt_fld">
+                    <input type="text" id="name" name="name" required>
+                    <span></span>
+                    <label>Enter Name of Listing</label>
+                </div>
+                <input type="Submit" value="Create">
+            </form>
+        </div>
+    </body>
+{% endblock %}

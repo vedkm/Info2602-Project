@@ -12,13 +12,16 @@ listing_views = Blueprint('listing_views', __name__, template_folder='../templat
 
 # use this route to add a new listing
 # an "Add Listing" form should call this route
-@listing_views.route("/listing", methods=["POST"])
+@listing_views.route("/listing", methods=["POST", "GET"])
 def add_listing():
     if (request.method == "POST"):
         data = request.form
-        listing = addListing(farmerID=data['farmerID'], name=data['name'])
+        farmerID = request.args.get('farmerID')
+        listing = addListing(farmerID=farmerID, name=data['name'])
         # flash("Listing Added with ID: " + listing.id)
         return redirect("/listing/"+str(listing['id']))
+    if (request.method == "GET"):
+        return render_template("createlisting.html")
 
 # use this route to get a listing by ID and render it to the page
 @listing_views.route("/listing/<id>", methods=["GET"])
