@@ -1,3 +1,4 @@
+from flask_login import current_user
 from App.models import Listing
 from App.database import db
 
@@ -19,6 +20,12 @@ def getListingByID(id):
     listing = Listing.query.get(id)
     if (not listing): return None
     return listing.toDict()
+
+def getListingsByFarmer(id):
+    listings = Listing.query.filter_by(farmerID=id)
+    if (not listings): return None
+    listings = [list.toDict() for list in listings]
+    return listings
 
 def setListingHTML(id, html):
     listing = Listing.query.get(id)

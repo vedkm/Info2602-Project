@@ -7,7 +7,7 @@ from sqlalchemy import JSON, false
 from werkzeug.utils import secure_filename
 from flask_jwt import jwt_required
 from App.controllers.auth import authenticate, get_session, login_user, logout_user
-from App.controllers.listing import getAllListings
+from App.controllers.listing import getAllListings, getListingsByFarmer
 
 from App.models import user
 from ..models import db, User, Listing
@@ -88,10 +88,10 @@ def update_froala_text():
 @api_views.route('/profile')
 @login_required
 def get_profile():
-    listing = Listing.query.get(1)
-    if (listing == None): return render_template("profile.html")
+    listings = getListingsByFarmer(current_user.id)
+    if (listings == None): return render_template("profile.html")
     # print(listing.toDict())
-    return render_template("profile.html", listingHTML=listing.html)
+    return render_template("profile.html", listings=listings)
 
 # App.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 UPLOAD_FOLDER = "C:/Users/User/OneDrive - The University of the West Indies, St. Augustine/year 2/INFO 2602/Info2602 Project/App/images"
