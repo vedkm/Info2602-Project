@@ -1,4 +1,5 @@
 import json
+import os
 from flask import Blueprint, flash, redirect, render_template, request
 from flask_login import login_required
 from App.controllers.listing import *
@@ -36,13 +37,12 @@ def save():
     if (request.files and request.files['image_param']):
         image = request.files['image_param']
         filename = secure_filename(image.filename)
-        # change to relative path
-        UPLOAD_FOLDER = "C:/Users/User/OneDrive - The University of the West Indies, St. Augustine/year 2/INFO 2602/Info2602 Project/App/images"
-        path = UPLOAD_FOLDER + "/" + filename
-        image.save(path, image.content_length)
+        
+        path = os.path.realpath( os.path.realpath("App/static/uploaded") + "/" + filename)
         print(path)
+        status = image.save(path, image.content_length)
         return {
-            "link": "/images/"+filename
+            "link": "/static/uploaded/"+filename
         }
 
     if (request.form['html']):

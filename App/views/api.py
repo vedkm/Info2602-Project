@@ -116,5 +116,5 @@ def post_froala_image():
 # note that this is not private
 @api_views.route('/images/<filename>')
 def get_image(filename):
-    return send_from_directory(UPLOAD_FOLDER, filename)
+    return send_from_directory("..images/", filename)
 
