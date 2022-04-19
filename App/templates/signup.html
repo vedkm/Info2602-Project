@@ -1,0 +1,41 @@
+
+
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login Page</title> 
+        <link rel="stylesheet" href="loginlook.css">
+    </head>
+    <body>
+        <div class="center">
+            <h1>Registration</h1>
+            <form action='/signup' method="post">
+                <div class="txt_fld">
+                    <input type="text" id="username" name="username" required>
+                    <span></span>
+                    <label>Create  Username</label>
+                </div>
+
+                <div class="txt_fld">
+                    <input type="password" id="password" name="password" required>
+                    <span></span>
+                    <label>Create Password</label>
+                </div>
+
+                <div class="txt_fld">
+                    <input type="text" id="shopName" name="shopName" required>
+                    <span></span>
+                    <label>Enter Store Name</label>
+                </div>
+
+               
+                
+                <!-- <div class="pass">Forget Password?</div> -->
+                <input type="Submit" value="signup">
+                <div class="signup_link">
+                    Back to login <a href="login.html">Login</a>
+
+                </div>
+            </form>
+        </div>
+    </body>
