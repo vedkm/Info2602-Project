@@ -26,7 +26,8 @@ def get_listing(id):
     farmer = get_user_by_ID(listing['farmerID'])
     if (not listing):
         flash("No Such Listing.", "error")
-        return redirect("/")
+        # return redirect("/")
+        return render_template("index.html")
     return render_template("listing.html", listing=listing, farmer=farmer)
 
 @listing_views.route('/savelistinghtml', methods=['PUT'])

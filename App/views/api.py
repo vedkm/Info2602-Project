@@ -44,7 +44,8 @@ def loginAction():
             if (status == True):
                 # session = get_session()
                 # return session.toDict()
-                return redirect("/profile")
+                # return redirect()
+                return render_template("login.html")
 
     flash("Invalid username or password. Would you like to signup?", "error")
     error = "Invalid username or password. Would you like to signup?"
@@ -57,8 +58,8 @@ def logout():
     db.session.add(user)
     db.session.commit()
     logout_user()
-    return redirect("/")
-    # return render_template("index.html")
+    # return redirect("./")
+    return render_template("login.html")
 
 @api_views.route('/save', methods=['PUT'])
 def update_froala_text():
@@ -83,7 +84,7 @@ def update_froala_text():
 # can return an array of listings if we end up doing multiple editors in 1 page
 @api_views.route('/profile')
 @login_required
-def get_editor():
+def get_profile():
     listing = Listing.query.get(1)
     if (listing == None): return render_template("profile.html")
     # print(listing.toDict())
