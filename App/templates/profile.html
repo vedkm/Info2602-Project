@@ -6,66 +6,66 @@
 {{ super() }}
 
 {% block content %}
-    <div style="display:grid;">
-        <div style="height:300px;">
-        <div >
-          <div class = "white-text">Profile Picture:<img class="responsive-img"></div>
-        </div>
+<div style="display:grid;">
+  <div style="height:300px;">
+  <div >
+    <div class = "white-text">Profile Picture:<img class="responsive-img"></div>
+  </div>
 
-        <div>
-          <div class = "white-text">Name:</div>
-        </div>
+  <div>
+    <div class = "white-text">Name:</div>
+  </div>
 
-        <div >
-          <div class = "white-text">
-            ID:
-          </div>
-        </div>
-      </div>
-      <div style = "height:100vh; ">
-        <div >
-          <a href="/listing">
-              <button class = "black-text">CREATE LISTING</button>
+  <div >
+    <div class = "white-text">
+      ID:
+    </div>
+  </div>
+</div>
+<div style = "height:100vh; ">
+  <div >
+    <a href="/listing">
+        <button class = "black-text">CREATE LISTING</button>
+    </a>
+  </div>
+  
+  
+  <div class="index-banner color2 " >
+    <div class="row" style="margin-top: 70px;">
+
+      <div class="col s10 offset-s1">
+        {% for listing in listings %}
+          <!-- <a class = "card mall" href="../listing/{{listing['id']}}">{{listing['name']}}</a> -->
+            <!-- <div class="row"> -->
+              <div class="col s12">
+                <div class="card blue-grey darken-1 truncate">
+                  <a href="../listing/{{listing['id']}}">{{listing['html']|safe}}</a>
+                  <div class="card-action">
+                    <a href="../listing/{{listing['id']}}">{{listing['name']}}</a>
+                    <button class="btn-floating waves-effect waves-light red right" onclick="deleteListing(`{{listing['id']}}`)">
+                      <i class="material-icons">delete</i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            <!-- </div> -->
           </a>
-        </div>
-        
-        
-        <div class="index-banner color2 " >
-          <div class="row" style="margin-top: 70px;">
-            <div class="col s10 offset-s1">
-              {% for listing in listings %}
-                <!-- <a class = "card mall" href="../listing/{{listing['id']}}">{{listing['name']}}</a> -->
-                  <!-- <div class="row"> -->
-                    <div class="col s3">
-                      <div class="card blue-grey darken-1 truncate">
-                        <a href="../listing/{{listing['id']}}">{{listing['html']|safe}}</a>
-                        <div class="card-action">
-                          <a href="../listing/{{listing['id']}}">{{listing['name']}}</a>
-                          <button class="btn-floating waves-effect waves-light red right" onclick="deleteListing(`{{listing['id']}}`)">
-                            <i class="material-icons">delete</i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  <!-- </div> -->
-                </a>
-              {% endfor %}
-                          <script>
-                            function deleteListing(id) {
-                              if (!id) return
-                                fetch("../listing/"+id, {
-                                  method: 'DELETE'
-                                })
-                                .then((r) => {
-                                  document.location.reload()
-                                })
-                            }
-                          </script>
-            </div>
-          </div>
+        {% endfor %}
+                    <script>
+                      function deleteListing(id) {
+                        if (!id) return
+                          fetch("../listing/"+id, {
+                            method: 'DELETE'
+                          })
+                          .then((r) => {
+                            document.location.reload()
+                          })
+                      }
+                    </script>
       </div>
     </div>
-
+</div>
+</div>
   
 {% endblock %}
 
