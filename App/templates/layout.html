@@ -31,6 +31,7 @@
       <li><div class="user-view">
         <div class="background orange" >
         </div>
+        {% if current_user.is_authenticated %}
         <a href="/edit"><img class="circle" src='{{current_user.profilePic}}'></a>
         <a href="/profile"><span class="black-text name">{{current_user.username}}</span></a>
         <a href="/profile"><span class="black-text shopname">{{current_user.shopName}}</span></a>
@@ -38,6 +39,7 @@
       </div></li>
       <!-- <li><a href="#!"><i class="material-icons">cloud</i>Listings</a></li> -->
       <li><a href="/profile">My Profile</a></li>
+      {% endif %}
       <li><a href="../">Listings</a></li>
       <li><div class="divider"></div></li>
       <!-- <li><a class="subheader">Subheader</a></li> -->
