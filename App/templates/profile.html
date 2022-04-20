@@ -6,31 +6,34 @@
 {{ super() }}
 
 {% block content %}
-<div class="container section" style="display:grid; min-width: 100%;">
-  <div class="row center" style="height:300px;">
-  <div >
-    <div class = "white-text"><img class="responsive-img circle" src="/{{profile.profilePic}}"></div>
-  </div>
-  
-  <div class="divider"></div>
+<div class="container section1" style=" display:grid; min-width: 100%;">
+  <div class="container section" style="background:linear-gradient(120deg,rgb(255, 242, 186),#eb944d); display:grid; min-width: 100%;">
+    <div class="row center" style="height:300px;">
+    <div >
+      <div class = "white-text"><img class="responsive-img circle" src="/{{profile.profilePic}}"></div>
+    </div>
+    
+    <div class="divider"></div>
 
-  <div class="row center">
-    <div class="col s6 white-text">username:</div>
-    <div class = "col s6 white-text">{{profile.username}}</div>
-  </div>
+    <div class="row center">
+      <div class="col s6 orange-text">username:</div>
+      <div class = "col s6 orange-text">{{profile.username}}</div>
+    </div>
 
-  <div class="row center">
-    <div class="col s6 white-text">shopname:</div>
-    <div class = "col s6 white-text">{{profile.shopName}}</div>
-  </div>
-  
-  {% if current_user.is_authenticated and current_user.id == profile.id %}
-  <div class="row center">
-    <a class="col s12 white-text" href="/edit"><i class="material-icons">edit</i></a>
-  </div>
+    <div class="row center">
+      <div class="col s6 orange-text">shopname:</div>
+      <div class = "col s6 orange-text">{{profile.shopName}}</div>
+    </div>
+    
+    {% if current_user.is_authenticated and current_user.id == profile.id %}
+    <div class="row center">
+      <a class="col s12 orange-text" href="/edit"><i class="material-icons"> edit</i></a>
+      
+    </div>
+    </div>
   </div>
   <div class="divider"></div>
-  <span class="row white-text">Your Listings</span>
+  <span  class="row white-text"> <p style="font-size:40px; font-style: oblique;"> Your Listings </p> </span>
   <div class="row center">
     <a class="col s12 white-text" href="/listing"><i class="material-icons">add</i></a>
   </div>
