@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from flask_jwt import jwt_required
 from App.controllers.auth import authenticate, get_session, login_user, logout_user
 from App.controllers.listing import getAllListings, getListingsByFarmer
-from App.controllers.user import set_user_photo, set_user_shopname
+from App.controllers.user import get_user_by_ID, set_user_photo, set_user_shopname
 
 from App.models import user
 from ..models import db, User, Listing
@@ -20,7 +20,14 @@ api_views = Blueprint('api_views', __name__, template_folder='../templates')
 @api_views.route('/', methods=['GET'])
 def get_api_docs():
     listings = getAllListings()
-    return render_template('index.html', listings=listings)
+    if (listings == None): return render_template("profile.html")
+    data = []
+    for listing in listings:
+        data.append({
+            'listing': listing,
+            'farmer': get_user_by_ID(listing['farmerID'])
+        })
+    return render_template("index.html", data=data)
 
 @api_views.route('/signup', methods=['POST', 'GET'])
 def signup():
@@ -90,9 +97,28 @@ def update_froala_text():
 @login_required
 def get_profile():
     listings = getListingsByFarmer(current_user.id)
-    if (listings == None): return render_template("profile.html")
+    if (listings == None): return render_template("profile.html", profileID=current_user.id)
+    data = []
+    for listing in listings:
+        data.append({
+            'listing': listing,
+            'farmer': get_user_by_ID(listing['farmerID'])
+        })
+    return render_template("profile.html", data=data, profileID=current_user.id)
+
+@api_views.route('/profile/<id>')
+def get_profile_unauth(id):
+    listings = getListingsByFarmer(id)
+    user = get_user_by_ID(id)
+    if (listings == None): return render_template("profile.html", profileID=user['id'])
+    data = []
+    for listing in listings:
+        data.append({
+            'listing': listing,
+            'farmer': get_user_by_ID(listing['farmerID'])
+        })
     # print(listing.toDict())
-    return render_template("profile.html", listings=listings)
+    return render_template("profile.html", data=data, profileID=user['id'])
 
 # edit profile
 @api_views.route('/edit', methods=['GET', 'POST'])
