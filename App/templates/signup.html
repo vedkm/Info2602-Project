@@ -1,11 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}CornHub{% endblock %}
+{% block page %}CornHub{% endblock %}
 
+{{ super() }}
 
-<!DOCTYPE html>
-    <head>
-        <meta charset="utf-8">
-        <title>Login Page</title> 
-        <link rel="stylesheet" href="loginlook.css">
-    </head>
+{% block content %}
+
     <body>
         <div class="center">
             <h1>Registration</h1>
@@ -39,3 +39,5 @@
             </form>
         </div>
     </body>
+
+{% endblock %}
