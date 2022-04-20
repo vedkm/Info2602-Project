@@ -97,9 +97,10 @@ def update_froala_text():
 def get_profile():
 
     profile = None
-    if (current_user.is_authenticated):
-        profile = current_user
-    if (request.args.get('id')):
+    if (not request.args.get('id')):
+        if (current_user.is_authenticated):
+            profile = current_user.toDict()
+    elif (request.args.get('id')):
         profile = get_user_by_ID(request.args.get('id'))
     else:
         profile = get_user_by_ID(1)
