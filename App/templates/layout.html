@@ -16,21 +16,20 @@
     
 
   </head>
-  <body class="grey lighten-2">
+  <body>
     
-    <nav class="navbar">
-      <div class="nav-wrapper orange">
+    <nav class="navbar"style="position:fixed;">
+      <div class="nav-wrapper">
         <a href='/' class="brand-logo center">{% block page %}{% endblock %}</a>
         <div class="button-wrapper">
-              <button data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></button>
+              <button data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
               </div>
             </div>
-          </nav>
-          <!-- <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
+    </nav>
 
     <ul id="slide-out" class="sidenav">
       <li><div class="user-view">
-        <div class="background orange" >
+        <div class="background card-panel teal lighten-2" >
         </div>
         <a href="/profile"><img class="circle" src=''></a>
         <a href="/profile"><span class="black-text name">{{current_user.username}}</span></a>
@@ -52,7 +51,7 @@
     </ul>
     <!-- <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
     
-    <div class="main-wrapper" id="main">
+    <div class="main-wrapper" id="main" >
       {% block content %}{% endblock %}
     </div>
  
