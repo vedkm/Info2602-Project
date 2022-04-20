@@ -53,10 +53,11 @@ def loginAction():
             db.session.commit()
             status = login_user(user, remember=True)
             if (status == True):
-                # session = get_session()
-                # return session.toDict()
-                # return redirect("/profile")
+                #  session = get_session()
+                #  return session.toDict()
+                #  return redirect("/profile")
                 return render_template("login.html")
+               
 
     flash("Invalid username or password. Would you like to signup?", "error")
     error = "Invalid username or password. Would you like to signup?"
