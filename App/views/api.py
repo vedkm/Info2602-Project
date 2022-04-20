@@ -101,10 +101,10 @@ def edit_profile():
     id = request.args.get('farmerID')
     if (request.method == "POST"):
         data = request.form
-        if ('name' in data):
+        if ('name' in data and not data['name'] == ""):
             set_user_shopname(id, data['name'])
         
-        if ('image' in request.files):
+        if ('image' in request.files and request.files['image'].filename):
             image = request.files['image']
             filename = secure_filename(image.filename)
             path = os.path.realpath( os.path.realpath("App/static/uploaded") + "/" + filename)

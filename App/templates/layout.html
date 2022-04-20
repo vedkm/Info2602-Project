@@ -14,9 +14,9 @@
     <title>{% block title %}{% endblock %}</title>
 
   </head>
-  <body class="black" >
+  <body class="black">
     
-    <nav class="navbar" >
+    <nav class="navbar " >
       <div class="nav-wrapper orange">
         <a href='/' class="brand-logo center">{% block page %}{% endblock %}</a>
         <div class="button-wrapper">
@@ -49,7 +49,7 @@
     </ul>
     <!-- <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
     
-    <div class="main-wrapper" id="main" >
+    <div class="main-wrapper white-text" id="main" >
       {% block content %}{% endblock %}
     </div>
  
@@ -58,6 +58,17 @@
     
     <script>
       M.AutoInit();
-    </script> 
+
+      
+
+      // document.addEventListener('DOMContentLoaded', function () {
+      //   var elems = document.querySelectorAll('.pushpin');
+      //   // options = {
+      //   //   'top': 60
+      //   // }
+      //   var instances = M.Pushpin.init(elems, options);
+      // });
+
+    </script>
   </body>
 </html>

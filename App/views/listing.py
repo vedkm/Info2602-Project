@@ -28,7 +28,8 @@ def add_listing():
 def get_listing(id):
     if (request.method == "DELETE"):
         deleteListing(id=id)
-        return redirect("profile")
+        return ""
+        # return redirect("profile")
 
     listing = getListingByID(id)
     farmer = get_user_by_ID(listing['farmerID'])
