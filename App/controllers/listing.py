@@ -2,9 +2,9 @@ from flask_login import current_user
 from App.models import Listing
 from App.database import db
 
-def addListing(farmerID, name):
+def addListing(farmerID, name, html):
     try:
-        listing = Listing(farmerID=farmerID, name=name)
+        listing = Listing(farmerID=farmerID, name=name, html=html)
         db.session.add(listing)
         db.session.commit()
     except:
@@ -26,6 +26,12 @@ def getListingsByFarmer(id):
     if (not listings): return None
     listings = [list.toDict() for list in listings]
     return listings
+
+def deleteListing(id):
+    listing = Listing.query.get(id)
+    if (not listing): return None
+    db.session.delete(listing)
+    return db.session.commit()
 
 def setListingHTML(id, html):
     listing = Listing.query.get(id)

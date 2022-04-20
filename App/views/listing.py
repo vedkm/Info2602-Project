@@ -17,15 +17,19 @@ def add_listing():
     if (request.method == "POST"):
         data = request.form
         farmerID = request.args.get('farmerID')
-        listing = addListing(farmerID=farmerID, name=data['name'])
+        listing = addListing(farmerID=farmerID, name=data['name'], html=data['html'])
         # flash("Listing Added with ID: " + listing.id)
         return redirect("/listing/"+str(listing['id']))
     if (request.method == "GET"):
         return render_template("createlisting.html")
 
 # use this route to get a listing by ID and render it to the page
-@listing_views.route("/listing/<id>", methods=["GET"])
+@listing_views.route("/listing/<id>", methods=["GET", "DELETE"])
 def get_listing(id):
+    if (request.method == "DELETE"):
+        deleteListing(id=id)
+        return redirect("profile")
+
     listing = getListingByID(id)
     farmer = get_user_by_ID(listing['farmerID'])
     if (not listing):
@@ -48,7 +52,7 @@ def save():
             "link": "/static/uploaded/"+filename
         }
 
-    if (request.form['html']):
+    if ('html' in request.form):
         html = request.form['html']
         id = request.form['id']
         farmerID = request.form['farmerID']
@@ -61,11 +65,9 @@ def save():
             db.session.commit()
             print("Listing Created")
             return "Listing Created"
-    
-    # listing.html = html
-    # db.session.add(listing)
-    # db.session.commit()
-    return setListingHTML(id=listing.id, html=html) 
+        return setListingHTML(id=id, html=html)
+
+    return request.form
 
 @listing_views.route('/listings')
 def get_listings():

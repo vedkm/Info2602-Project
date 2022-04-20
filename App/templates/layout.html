@@ -16,20 +16,21 @@
     
 
   </head>
-  <body>
+  <body class="grey lighten-2">
     
     <nav class="navbar">
-      <div class="nav-wrapper">
+      <div class="nav-wrapper orange">
         <a href='/' class="brand-logo center">{% block page %}{% endblock %}</a>
         <div class="button-wrapper">
-              <button data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+              <button data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></button>
               </div>
             </div>
-    </nav>
+          </nav>
+          <!-- <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
 
     <ul id="slide-out" class="sidenav">
       <li><div class="user-view">
-        <div class="background card-panel teal lighten-2" >
+        <div class="background orange" >
         </div>
         <a href="/profile"><img class="circle" src=''></a>
         <a href="/profile"><span class="black-text name">{{current_user.username}}</span></a>

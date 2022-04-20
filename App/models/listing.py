@@ -8,10 +8,10 @@ class Listing(db.Model):
     photo = db.Column(db.String(150), nullable=True)
     html = db.Column(db.Text(), nullable=True)
 
-    def __init__(self, farmerID, name):
+    def __init__(self, farmerID, name, html):
         self.farmerID = farmerID
         self.name = name
-        self.html = ""
+        self.html = html
 
     def toDict(self):
         return {
