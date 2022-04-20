@@ -35,7 +35,9 @@
         <a href="/profile"><span class="black-text email">jdandturk@gmail.com</span></a>
       </div></li>
       <!-- <li><a href="#!"><i class="material-icons">cloud</i>Listings</a></li> -->
+      {% if current_user.is_authenticated %} 
       <li><a href="/profile">My Profile</a></li>
+      {% endif %}
       <li><a href="../">Listings</a></li>
       <li><div class="divider"></div></li>
       <!-- <li><a class="subheader">Subheader</a></li> -->

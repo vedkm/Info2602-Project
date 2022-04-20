@@ -55,7 +55,7 @@ def loginAction():
             if (status == True):
                 # session = get_session()
                 # return session.toDict()
-                # return redirect()
+                # return redirect("/profile")
                 return render_template("login.html")
 
     flash("Invalid username or password. Would you like to signup?", "error")
@@ -94,31 +94,39 @@ def update_froala_text():
 
 # can return an array of listings if we end up doing multiple editors in 1 page
 @api_views.route('/profile')
-@login_required
 def get_profile():
-    listings = getListingsByFarmer(current_user.id)
-    if (listings == None): return render_template("profile.html", profileID=current_user.id)
-    data = []
-    for listing in listings:
-        data.append({
-            'listing': listing,
-            'farmer': get_user_by_ID(listing['farmerID'])
-        })
-    return render_template("profile.html", data=data, profileID=current_user.id)
 
-@api_views.route('/profile/<id>')
-def get_profile_unauth(id):
-    listings = getListingsByFarmer(id)
-    user = get_user_by_ID(id)
-    if (listings == None): return render_template("profile.html", profileID=user['id'])
+    profile = None
+    if (current_user.is_authenticated):
+        profile = current_user
+    if (request.args.get('id')):
+        profile = get_user_by_ID(request.args.get('id'))
+    else:
+        profile = get_user_by_ID(1)
+
+    listings = getListingsByFarmer(profile['id'])
+    if (listings == None): return render_template("profile.html", profile=profile)
     data = []
     for listing in listings:
         data.append({
             'listing': listing,
             'farmer': get_user_by_ID(listing['farmerID'])
         })
-    # print(listing.toDict())
-    return render_template("profile.html", data=data, profileID=user['id'])
+    return render_template("profile.html", data=data, profile=profile)
+
+# @api_views.route('/profile/<id>')
+# def get_profile_unauth(id):
+#     listings = getListingsByFarmer(id)
+#     user = get_user_by_ID(id)
+#     if (listings == None): return render_template("profile.html", profile=user)
+#     data = []
+#     for listing in listings:
+#         data.append({
+#             'listing': listing,
+#             'farmer': get_user_by_ID(listing['farmerID'])
+#         })
+#     # print(listing.toDict())
+#     return render_template("profile.html", data=data, profile=user)
 
 # edit profile
 @api_views.route('/edit', methods=['GET', 'POST'])

@@ -23,7 +23,8 @@ class User(db.Model, UserMixin):
         return{
             'id': self.id,
             'username': self.username,
-            'shopName': self.shopName
+            'shopName': self.shopName,
+            'profilePic': self.profilePic
             # 'firstName': self.firstName,
             # 'lastName': self.lastName
         }
