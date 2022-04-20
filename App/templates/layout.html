@@ -14,10 +14,12 @@
     <title>{% block title %}{% endblock %}</title>
 
   </head>
-  <body class="black">
+  
+
+  <body class="orange darken-1">
     
     <nav class="navbar " >
-      <div class="nav-wrapper orange">
+      <div class="nav-wrapper orange darken-3">
         <a href='/' class="brand-logo center">{% block page %}{% endblock %}</a>
         <div class="button-wrapper">
               <button data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
@@ -35,9 +37,7 @@
         <a href="/profile"><span class="black-text email">jdandturk@gmail.com</span></a>
       </div></li>
       <!-- <li><a href="#!"><i class="material-icons">cloud</i>Listings</a></li> -->
-      {% if current_user.is_authenticated %} 
       <li><a href="/profile">My Profile</a></li>
-      {% endif %}
       <li><a href="../">Listings</a></li>
       <li><div class="divider"></div></li>
       <!-- <li><a class="subheader">Subheader</a></li> -->
