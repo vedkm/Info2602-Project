@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block page %}{{current_user.shopName}}{% endblock %}
+
+{{ super() }}
+
+{% block content %}
+<div class="center">
+    <h1>Edit Profile</h1>
+    <form action="/edit?farmerID={{current_user.id}}" method="post" enctype="multipart/form-data">
+        <div class="txt_fld">
+            <input type="text" id="name" name="name">
+            <label>Enter Shop Name</label>
+            <hr>
+            <input type="file" id="image" name="image">
+            <label>Upload Profile Picture</label>
+        </div>
+        <input type="Submit" value="Submit">
+    </form>
+</div>
+{% endblock %}

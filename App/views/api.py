@@ -8,6 +8,7 @@ from werkzeug.utils import secure_filename
 from flask_jwt import jwt_required
 from App.controllers.auth import authenticate, get_session, login_user, logout_user
 from App.controllers.listing import getAllListings, getListingsByFarmer
+from App.controllers.user import set_user_photo, set_user_shopname
 
 from App.models import user
 from ..models import db, User, Listing
@@ -92,6 +93,25 @@ def get_profile():
     if (listings == None): return render_template("profile.html")
     # print(listing.toDict())
     return render_template("profile.html", listings=listings)
+
+# edit profile
+@api_views.route('/edit', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    id = request.args.get('farmerID')
+    if (request.method == "POST"):
+        data = request.form
+        if ('name' in data):
+            set_user_shopname(id, data['name'])
+        
+        if ('image' in request.files):
+            image = request.files['image']
+            filename = secure_filename(image.filename)
+            path = os.path.realpath( os.path.realpath("App/static/uploaded") + "/" + filename)
+            status = image.save(path, image.content_length)
+            set_user_photo(id, "static/uploaded/"+filename)
+
+    return render_template("editprofile.html")
 
 # App.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 UPLOAD_FOLDER = "C:/Users/User/OneDrive - The University of the West Indies, St. Augustine/year 2/INFO 2602/Info2602 Project/App/images"

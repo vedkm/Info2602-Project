@@ -13,8 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{% block title %}{% endblock %}</title>
 
-    
-
   </head>
   <body class="grey lighten-2">
     
@@ -31,7 +29,7 @@
       <li><div class="user-view">
         <div class="background orange" >
         </div>
-        <a href="/profile"><img class="circle" src=''></a>
+        <a href="/edit"><img class="circle" src='{{current_user.profilePic}}'></a>
         <a href="/profile"><span class="black-text name">{{current_user.username}}</span></a>
         <a href="/profile"><span class="black-text shopname">{{current_user.shopName}}</span></a>
         <a href="/profile"><span class="black-text email">jdandturk@gmail.com</span></a>
