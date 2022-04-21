@@ -165,9 +165,10 @@ def edit_profile():
             path = os.path.realpath( os.path.realpath("App/static/uploaded") + "/" + filename)
             status = image.save(path, image.content_length)
             set_user_photo(id, "static/uploaded/"+filename)
+        return redirect('/profile')
 
-    # return render_template("editprofile.html")
-    return redirect('/profile')
+    if (request.method == "GET"):
+        return render_template("editprofile.html")
 
 # allows the text editor to fetch the saved image from server,
 # note that this is not private
