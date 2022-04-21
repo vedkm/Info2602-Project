@@ -30,6 +30,20 @@ def set_user_shopname(id, shopName):
     db.session.commit()
     return user
 
+def set_user_contact(id, contact):
+    user = User.query.get(id)
+    user.contact = contact
+    db.session.add(user)
+    db.session.commit()
+    return user
+
+def set_user_location(id, location):
+    user = User.query.get(id)
+    user.location = location
+    db.session.add(user)
+    db.session.commit()
+    return user
+
 def set_user_photo(id, photo):
     user = User.query.get(id)
     user.profilePic = photo

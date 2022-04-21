@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from flask_jwt import jwt_required
 from App.controllers.auth import authenticate, get_session, login_user, logout_user
 from App.controllers.listing import getAllListings, getListingsByFarmer
-from App.controllers.user import get_user_by_ID, set_user_photo, set_user_shopname
+from App.controllers.user import get_user_by_ID, set_user_contact, set_user_location, set_user_photo, set_user_shopname
 
 from App.models import user
 from ..models import db, User, Listing
@@ -36,9 +36,22 @@ def signup():
         username = data['username']
         password = data['password']
         shopName = data['shopName']
-        db.session.add(User(username, password, shopName))
+        contact = data['contact']
+        location = data['location']
+
+        if ('image' in request.files and request.files['image'].filename):
+            image = request.files['image']
+            filename = secure_filename(image.filename)
+            path = os.path.realpath( os.path.realpath("App/static/uploaded") + "/" + filename)
+            status = image.save(path, image.content_length)
+            db.session.add(User(username, password, shopName, contact, location, "static/uploaded/"+filename))
+            db.session.commit()
+            return redirect('/login')
+
+        db.session.add(User(username, password, shopName, contact, location))
         db.session.commit()
-        return render_template('profile.html')
+        return redirect('/login')
+        # return render_template('profile.html')
     if (request.method == "GET"):
         return render_template('signup.html')
 
@@ -139,6 +152,12 @@ def edit_profile():
         data = request.form
         if ('name' in data and not data['name'] == ""):
             set_user_shopname(id, data['name'])
+
+        if ('contact' in data and not data['contact'] == ""):
+            set_user_contact(id, data['contact'])
+
+        if ('location' in data and not data['location'] == ""):
+            set_user_location(id, data['location'])
         
         if ('image' in request.files and request.files['image'].filename):
             image = request.files['image']
@@ -147,7 +166,8 @@ def edit_profile():
             status = image.save(path, image.content_length)
             set_user_photo(id, "static/uploaded/"+filename)
 
-    return render_template("editprofile.html")
+    # return render_template("editprofile.html")
+    return redirect('/profile')
 
 # App.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 UPLOAD_FOLDER = "C:/Users/User/OneDrive - The University of the West Indies, St. Augustine/year 2/INFO 2602/Info2602 Project/App/images"

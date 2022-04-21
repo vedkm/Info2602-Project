@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Edit Profile{% endblock %}
 {% block page %}{{current_user.shopName}}{% endblock %}
 
 {{ super() }}
@@ -9,13 +9,28 @@
     <h1>Edit Profile</h1>
     <form action="/edit?farmerID={{current_user.id}}" method="post" enctype="multipart/form-data">
         <div class="txt_fld">
-            <input type="text" id="name" name="name" class="white-text">
-            <label>Enter Shop Name</label>
+            <div class="txt_fld">
+                <input type="text" id="name" name="name" class="white-text">
+                <label>Enter Shop Name</label>
+            </div>
             <hr>
-            <input type="file" id="image" name="image">
-            <label>Upload Profile Picture</label>
+            <div class="txt_fld">
+                <label>Upload Profile Picture</label>
+                <input type="file" id="image" name="image">
+            </div>
+            <div class="txt_fld">
+                <input type="tel" id="contact" name="contact" class="white-text">
+                <span></span>
+                <label>Enter Phone Number (eg. 18683161135)</label>
+            </div>
+            
+            <div class="txt_fld">
+                <input type="text" id="location" name="location" class="white-text">
+                <span></span>
+                <label>Enter Address</label>
+            </div>
         </div>
-        <input type="Submit" value="Submit">
+        <input type="Submit" value="Submit" class="btn orange darken-4">
     </form>
 </div>
 {% endblock %}

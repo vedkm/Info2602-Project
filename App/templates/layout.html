@@ -16,38 +16,38 @@
   </head>
   
 
-  <body class="orange darken-1">
+  <body class="grey darken-4">
     
-    <nav class="navbar " >
-      <div class="nav-wrapper orange darken-3">
-        <a href='/' class="brand-logo center">{% block page %}{% endblock %}</a>
-        <div class="button-wrapper">
-              <button data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    <nav class="navbar">
+      <div class="nav-wrapper black">
+        <a href='/' class="brand-logo center orange-text">{% block page %}{% endblock %}</a>
+        <div>
+              <button data-target="slide-out" class="sidenav-trigger grey darken-4"><i class="material-icons white-text">menu</i></a>
               </div>
             </div>
-    </nav>
+          </nav>
+          <!-- <a data-target="slide-out" class="sidenav-trigger"><i class="material-icons white-text">menu</i></a> -->
 
-    <ul id="slide-out" class="sidenav">
+    <ul id="slide-out" class="sidenav black">
       <li><div class="user-view">
-        <div class="background orange" >
+        <div class="background orange darken-4" >
         </div>
         {% if current_user.is_authenticated %}
         <a href="/edit"><img class="circle" src='{{current_user.profilePic}}'></a>
-        <a href="/profile"><span class="black-text name">{{current_user.username}}</span></a>
-        <a href="/profile"><span class="black-text shopname">{{current_user.shopName}}</span></a>
-        <a href="/profile"><span class="black-text email">jdandturk@gmail.com</span></a>
+        <a href="/profile"><span class="white-text name">{{current_user.username}}</span></a>
+        <a href="/profile"><span class="white-text shopname">{{current_user.shopName}}</span></a>
       </div></li>
       <!-- <li><a href="#!"><i class="material-icons">cloud</i>Listings</a></li> -->
-      <li><a href="/profile">My Profile</a></li>
+      <li><a class="white-text" href="/profile">My Profile</a></li>
       {% endif %}
-      <li><a href="../">Listings</a></li>
-      <li><div class="divider"></div></li>
+      <li><a class="white-text" href="../">Listings</a></li>
+      <li><div class="divider grey darken-3"></div></li>
       <!-- <li><a class="subheader">Subheader</a></li> -->
       <li>
         {% if current_user.is_authenticated %} 
-          <a class="waves-effect" href="/logout">Log Out</a>
+          <a class="waves-effect white-text" href="/logout">Log Out</a>
         {% else %}
-          <a class="waves-effect" href="/login">Log In</a>
+          <a class="waves-effect white-text" href="/login">Log In</a>
         {% endif %}
       </li>
     </ul>
