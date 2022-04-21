@@ -69,7 +69,7 @@ def loginAction():
                 #  session = get_session()
                 #  return session.toDict()
                 #  return redirect("/profile")
-                return render_template("login.html")
+                return redirect("/profile")
                
 
     flash("Invalid username or password. Would you like to signup?", "error")
@@ -83,8 +83,8 @@ def logout():
     db.session.add(user)
     db.session.commit()
     logout_user()
-    # return redirect("./")
-    return render_template("login.html")
+    return redirect("/login")
+    # return render_template("login.html")
 
 @api_views.route('/save', methods=['PUT'])
 def update_froala_text():
@@ -168,25 +168,6 @@ def edit_profile():
 
     # return render_template("editprofile.html")
     return redirect('/profile')
-
-# App.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-UPLOAD_FOLDER = "C:/Users/User/OneDrive - The University of the West Indies, St. Augustine/year 2/INFO 2602/Info2602 Project/App/images"
-
-@api_views.route('/upload_froala_image', methods=['POST'])
-def post_froala_image():
-    image = request.files['image_param']
-    # path = os.path.join(UPLOAD_FOLDER, secure_filename(image.filename))
-
-    # may not return unique
-    filename = secure_filename(image.filename)
-
-    path = UPLOAD_FOLDER + "/" + filename
-    image.save(path, image.content_length)
-    print(path)
-    return {
-        # "link": "images/"+filename
-        "link": "/savelistinghtml"
-    }
 
 # allows the text editor to fetch the saved image from server,
 # note that this is not private

@@ -28,15 +28,13 @@ def add_listing():
 def get_listing(id):
     if (request.method == "DELETE"):
         deleteListing(id=id)
-        return ""
-        # return redirect("profile")
+        return redirect("/profile")
 
     listing = getListingByID(id)
     farmer = get_user_by_ID(listing['farmerID'])
     if (not listing):
         flash("No Such Listing.", "error")
-        # return redirect("/")
-        return render_template("index.html")
+        return redirect("/")
     return render_template("listing.html", listing=listing, farmer=farmer)
 
 @listing_views.route('/savelistinghtml', methods=['PUT'])
