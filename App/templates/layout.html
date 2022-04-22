@@ -33,7 +33,7 @@
         <div class="background orange darken-4" >
         </div>
         {% if current_user.is_authenticated %}
-        <a href="/edit"><img class="circle" src='{{current_user.profilePic}}'></a>
+        <a href="/edit"><img class="circle" src='../{{current_user.profilePic}}'></a>
         <a href="/profile"><span class="white-text name">{{current_user.username}}</span></a>
         <a href="/profile"><span class="white-text shopname">{{current_user.shopName}}</span></a>
       </div></li>
