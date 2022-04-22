@@ -23,6 +23,15 @@ def add_listing():
     if (request.method == "GET"):
         return render_template("createlisting.html")
 
+# @listing_views.route("/listing/add", methods=["POST"])
+# @login_required
+# def add_listing():
+#     data = request.form
+#     farmerID = request.args.get('farmerID')
+#     listing = addListing(farmerID=farmerID, name=data['name'], html=data['html'])
+#     # flash("Listing Added with ID: " + listing.id)
+#     return redirect("/listing/"+str(listing['id']))
+
 # use this route to get a listing by ID and render it to the page
 @listing_views.route("/listing/<id>", methods=["GET", "DELETE"])
 def get_listing(id):
@@ -37,7 +46,9 @@ def get_listing(id):
         return redirect("/")
     return render_template("listing.html", listing=listing, farmer=farmer)
 
+# called by froala editor
 @listing_views.route('/savelistinghtml', methods=['PUT'])
+@login_required
 def save():
 
     if (request.files and request.files['image_param']):
@@ -67,18 +78,3 @@ def save():
         return setListingHTML(id=id, html=html)
 
     return request.form
-
-@listing_views.route('/listings')
-def get_listings():
-    id = request.args.get('id')
-    listings = []
-    if (id):
-        listings = Listing.query.get(id)
-        if (not listings):
-            listings = []
-        else:
-            listings = listings.toDict()
-    else:
-        listings = Listing.query.all()
-        listings = [list.toDict() for list in listings]
-    return json.dumps(listings)

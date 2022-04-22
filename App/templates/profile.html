@@ -18,35 +18,40 @@
       <div class="divider"></div>
 
       <div class="row center">
-        <div class="col s6 white-text"><b>username</b>:</div>
-        <div class="col s6 white-text"><b>{{profile.username}}</b></div>
+        <div class="col s6 black-text"><b>username</b>:</div>
+        <div class="col s6 black-text"><b>{{profile.username}}</b></div>
       </div>
 
       <div class="row center">
-        <div class="col s6 white-text"><b>shopname</b>:</div>
-        <div class="col s6 white-text"><b>{{profile.shopName}}</b></div>
+        <div class="col s6 black-text"><b>shopname</b>:</div>
+        <div class="col s6 black-text"><b>{{profile.shopName}}</b></div>
       </div>
 
       <div class="row center">
-        <div class="col s6 white-text"><b>contact</b>:</div>
-        <div class="col s6 white-text"><b>{{profile.contact}}</b></div>
+        <div class="col s6 black-text"><b>contact</b>:</div>
+        <div class="col s6 black-text"><b>{{profile.contact}}</b></div>
       </div>
 
       <div class="row center">
-        <div class="col s6 white-text"><b>location</b>:</div>
-        <div class="col s6 white-text"><b>{{profile.location}}</b></div>
+        <div class="col s6 black-text"><b>location</b>:</div>
+        <div class="col s6 black-text"><b>{{profile.location}}</b></div>
       </div>
 
       {% if current_user.is_authenticated and current_user.id == profile.id %}
       <div class="row center">
-        <a class="col s12 white-text" href="/edit"><i class="material-icons"> edit</i></a>
+        <a class="col s12 black-text" href="/edit"><i class="material-icons">edit</i></a>
       </div>
+      {% endif %}
     </div>
   </div>
   <div class="divider"></div>
   <span class="row white-text">
-    <p style="font-size:40px; font-style: oblique;"> Your Listings </p>
+    <p style="font-size:40px; font-style: oblique;">
+      {% if current_user.id == profile.id %} 
+      Your {% endif %}Listings
+    </p>
   </span>
+  {% if current_user.is_authenticated and current_user.id == profile.id %}
   <div class="row center">
     <a class="col s12 white-text" href="/listing"><i class="material-icons">add</i></a>
   </div>
@@ -54,28 +59,40 @@
 </div>
 
 
-<div class="row" style="width: 90%; font-style: oblique;">
+<div class="row" style="width: 90%;">
   {% for ele in data %}
-  <div class="col s12 m6">
-    <div class="card hoverable" style="max-width: 100vw; border-radius: 10pt; background-color: #e65100;">
-      <div class="card-image truncate">
+  <div class="col s12 m4">
+    <div class="card hoverable large card-image truncate center-align" style="max-width: 100vw; border-radius: 10pt; background-color: #e65100;">
         {{ele.listing['html']|safe}}
-      </div>
       <div class="card-action black container" style="width: 100%; border-bottom-left-radius: 5pt; border-bottom-right-radius: 5pt;">
-        <div class="row">
-          <a href="../listing/{{ele.listing['id']}}">{{ele.listing['name']}}</a>
-          <a href="../profile?id={{ele.farmer['id']}}">{{ele.farmer['shopName']}}</a>
+        <div class="row white-text left-align">
+          <a class="white-text" href="../listing/{{ele.listing['id']}}">{{ele.listing['name']}}</a>
+          <a class="white-text" href="../profile?id={{ele.farmer['id']}}">{{ele.farmer['shopName']}}</a>
+          {% if current_user.is_authenticated and current_user.id == profile.id %}
           <a href="../listing/{{ele.listing['id']}}" class="right btn-floating waves-effect waves-light red">
             <i class="material-icons">edit</i>
           </a>
           <button class="right btn-floating waves-effect waves-light red" onclick="deleteListing(`{{ele.listing['id']}}`)">
             <i class="material-icons">delete</i>
           </button>
+          {% endif %}
         </div>
       </div>
     </div>
   </div>
   {% endfor %}
+
+  <script>
+    function deleteListing(id) {
+      if (!id) return
+        fetch("../listing/"+id, {
+          method: 'DELETE'
+        })
+        .then((r) => {
+          document.location.reload()
+        })
+    }
+  </script>
 </div>
 
 

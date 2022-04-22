@@ -106,7 +106,7 @@ def update_froala_text():
     db.session.commit()
     return html
 
-# can return an array of listings if we end up doing multiple editors in 1 page
+
 @api_views.route('/profile')
 def get_profile():
 
@@ -128,20 +128,6 @@ def get_profile():
             'farmer': get_user_by_ID(listing['farmerID'])
         })
     return render_template("profile.html", data=data, profile=profile)
-
-# @api_views.route('/profile/<id>')
-# def get_profile_unauth(id):
-#     listings = getListingsByFarmer(id)
-#     user = get_user_by_ID(id)
-#     if (listings == None): return render_template("profile.html", profile=user)
-#     data = []
-#     for listing in listings:
-#         data.append({
-#             'listing': listing,
-#             'farmer': get_user_by_ID(listing['farmerID'])
-#         })
-#     # print(listing.toDict())
-#     return render_template("profile.html", data=data, profile=user)
 
 # edit profile
 @api_views.route('/edit', methods=['GET', 'POST'])
@@ -172,7 +158,7 @@ def edit_profile():
 
 # allows the text editor to fetch the saved image from server,
 # note that this is not private
-@api_views.route('/images/<filename>')
-def get_image(filename):
-    return send_from_directory("..images/", filename)
+# @api_views.route('/images/<filename>')
+# def get_image(filename):
+#     return send_from_directory("..images/", filename)
 
