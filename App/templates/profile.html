@@ -18,23 +18,23 @@
       <div class="divider"></div>
 
       <div class="row center">
-        <div class="col s6 black-text"><b>username</b>:</div>
-        <div class="col s6 black-text"><b>{{profile.username}}</b></div>
+        <div class="col m6 black-text"><b>username</b>:</div>
+        <div class="col m6 black-text"><b>{{profile.username}}</b></div>
       </div>
 
       <div class="row center">
-        <div class="col s6 black-text"><b>shopname</b>:</div>
-        <div class="col s6 black-text"><b>{{profile.shopName}}</b></div>
+        <div class="col m6 black-text"><b>shopname</b>:</div>
+        <div class="col m6 black-text"><b>{{profile.shopName}}</b></div>
       </div>
 
       <div class="row center">
-        <div class="col s6 black-text"><b>contact</b>:</div>
-        <div class="col s6 black-text"><b>{{profile.contact}}</b></div>
+        <div class="col m6 black-text"><b>contact</b>:</div>
+        <div class="col m6 black-text"><b>{{profile.contact}}</b></div>
       </div>
 
       <div class="row center">
-        <div class="col s6 black-text"><b>location</b>:</div>
-        <div class="col s6 black-text"><b>{{profile.location}}</b></div>
+        <div class="col m6 black-text"><b>location</b>:</div>
+        <div class="col m6 black-text"><b>{{profile.location}}</b></div>
       </div>
 
       {% if current_user.is_authenticated and current_user.id == profile.id %}
@@ -69,11 +69,11 @@
           <a class="white-text" href="../listing/{{ele.listing['id']}}">{{ele.listing['name']}}</a>
           <a class="white-text" href="../profile?id={{ele.farmer['id']}}">{{ele.farmer['shopName']}}</a>
           {% if current_user.is_authenticated and current_user.id == profile.id %}
-          <a href="../listing/{{ele.listing['id']}}" class="right btn-floating waves-effect waves-light red">
-            <i class="material-icons">edit</i>
+          <a href="../listing/{{ele.listing['id']}}" class="right btn-floating waves-effect waves-light white">
+            <i class="material-icons black-text">edit</i>
           </a>
-          <button class="right btn-floating waves-effect waves-light red" onclick="deleteListing(`{{ele.listing['id']}}`)">
-            <i class="material-icons">delete</i>
+          <button class="right btn-floating waves-effect waves-light white" onclick="deleteListing(`{{ele.listing['id']}}`)">
+            <i class="material-icons black-text">delete</i>
           </button>
           {% endif %}
         </div>
