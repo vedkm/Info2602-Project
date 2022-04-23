@@ -1,7 +1,8 @@
 import json
 import os
-from flask import Blueprint, flash, redirect, render_template, request
-from flask_login import login_required
+from flask import Blueprint, current_app, flash, redirect, render_template, request
+from flask_login import login_required, login_manager
+import flask_login
 from App.controllers.listing import *
 from App.controllers.user import get_user_by_ID
 from App.models import db, User, Listing, listing
@@ -10,9 +11,24 @@ from werkzeug.utils import secure_filename
 
 listing_views = Blueprint('listing_views', __name__, template_folder='../templates')
 
+
+@listing_views.route('/', methods=['GET'])
+def get_index():
+    listings = getAllListings()
+    if (listings == None): return render_template("profile.html")
+    data = []
+    for listing in listings:
+        data.append({
+            'listing': listing,
+            'farmer': get_user_by_ID(listing['farmerID'])
+        })
+    return render_template("index.html", data=data)
+
+
 # use this route to add a new listing
 # an "Add Listing" form should call this route
 @listing_views.route("/listing", methods=["POST", "GET"])
+@login_required
 def add_listing():
     if (request.method == "POST"):
         data = request.form
@@ -23,19 +39,13 @@ def add_listing():
     if (request.method == "GET"):
         return render_template("createlisting.html")
 
-# @listing_views.route("/listing/add", methods=["POST"])
-# @login_required
-# def add_listing():
-#     data = request.form
-#     farmerID = request.args.get('farmerID')
-#     listing = addListing(farmerID=farmerID, name=data['name'], html=data['html'])
-#     # flash("Listing Added with ID: " + listing.id)
-#     return redirect("/listing/"+str(listing['id']))
 
 # use this route to get a listing by ID and render it to the page
 @listing_views.route("/listing/<id>", methods=["GET", "DELETE"])
 def get_listing(id):
     if (request.method == "DELETE"):
+        if not current_user.is_authenticated:
+            return current_app.login_manager.unauthorized()
         deleteListing(id=id)
         return redirect("/profile")
 
